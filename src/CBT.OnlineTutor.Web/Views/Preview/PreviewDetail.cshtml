@@ -1,0 +1,175 @@
+﻿@using CBT.OnlineTutor.Web.Startup;
+@using CBT.OnlineTutor.EClass.Dtos;
+@model CBT.OnlineTutor.Web.Models.CategoryListViewModel
+
+@*@section scripts
+{*@
+    <script>
+        $(function () {
+            $(".numeric").bind('keypress', (function (e) {
+                $('.tempDiv').remove();
+                if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                    $(this).parent().after("<span class='tempDiv' style='color:red;margin-left: 5px;'>Numbers only</span>");
+                    $('.tempDiv').fadeOut("slow");
+                    return false;
+                }
+            }));
+
+            $('#dtControl').datetimepicker({ mask: true, timepicker: false, format: 'Y/m/d', minDate: "1" });
+        });
+    </script>
+@*}*@
+
+<form id="PreviewContentForm">
+    @if (Model.CategoryLists.Count > 0)
+    {
+        <div class="form-group">
+            <div class="col-md-2 formLabel"><label><b>CBT CODE : </b></label></div>
+            <div class="col-md-10 text-left"><label>@ViewBag.UniqueId</label></div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-2 formLabel"><label><b>NAME OF CBT : </b></label></div>
+            <div class="col-md-10 text-left"><label>@ViewBag.Name</label></div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-2 formLabel"><label><b>DESCRIPTION : </b></label></div>
+            <div class="col-md-10 text-left"><label>@ViewBag.Description</label></div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-2 formLabel"><label><b>PROGRAM TYPE : </b></label></div>
+            <div class="col-md-10 text-left"><label>@ViewBag.ProgramType</label></div>
+        </div>
+    }
+    <div class="form-group" style="height:110px;"></div>
+    <div class="form-group">
+        @foreach (CategoryDto item in Model.CategoryLists)
+        {
+            if (item.CBTContents.Count > 0)
+            {
+                <div class="form-group">
+                    @*<span style="float:right;">*@
+                        <h4>Category : @item.CategoryName</h4> @*: @item.Description*@
+                    @*</span>*@
+                    @foreach (CBTContentDto cbt in Model.CBTContentLists.Where(c => c.CategoryId == item.Id))
+                    {
+                        <div class="form-group col-sm-12 well" style="background-color: rgba(224, 224, 224, 0.38) !important;">
+                            <h4>Content</h4><input type="hidden" id="partialQuestionId" value="@cbt.Id.ToString()" />
+                            <label for="cbtContent" style="padding-left:50px; padding-right: 50px;">
+                                @cbt.Code
+                                <br />
+                                @Html.Raw(@cbt.Description)
+                            </label>
+
+                            <h4>Response</h4>
+                            <br />
+
+                            @if (cbt.Required)
+                            {
+                                <span style="color: red;" title="Required">This response is required.</span>
+                                <br />
+                            }
+                            <div style="padding-left:50px; padding-right: 50px;">
+                                <div class="form-group col-sm-12">
+                                    @if (cbt.ContentTypeId == 1)
+                                    {
+                                        if (cbt.OnlyNumericValue)
+                                        {
+                                            <input type="Text" class="form-control numeric" placeholder="Give your answer">
+                                        }
+                                        else
+                                        {
+                                            <textarea class="form-control" rows="3" placeholder="Give your answer"></textarea>
+                                        }
+                                    }
+
+                                    @if (cbt.ContentTypeId == 2)
+                                    {
+                                        @foreach (CBTContentOptionsDto option in cbt.CBTContentOption)
+                                        {
+                                            <div class="form-group col-sm-10 col-md-10">
+                                                <div class="col-sm-2">
+                                                    <label>@option.OptionValue</label>
+                                                </div>
+                                                <div class="col-sm-10">
+                                                    @if (@option.DataType == "NUMERIC")
+                                                    {
+                                                        <div class="col-sm-6"><input type="Text" class="form-control numeric" placeholder="NUMERIC" /></div>
+                                                    }
+                                                    else if (@option.DataType == "DATETIME")
+                                                    {
+                                                        <div class="col-sm-12"><input type="Text" class="form-control" id='dtControl' placeholder="DATETIME" /></div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class="col-sm-12"><input type="Text" class="form-control" placeholder="TEXT" /></div>
+                                                    }
+
+                                                </div>
+                                            </div>
+                                        }
+                                    }
+
+                                    @if (cbt.ContentTypeId == 3)
+                                    {
+                                        @if (cbt.AllowMultipleChoice)
+                                        {
+                                            foreach (CBTContentOptionsDto mcOption in cbt.CBTContentOption)
+                                            {
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input type="checkbox" class="target" id="optionsRadios_@mcOption.Id" value="@mcOption.Id">
+                                                        @mcOption.OptionValue
+                                                    </label>
+                                                </div>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            foreach (CBTContentOptionsDto mcOption in cbt.CBTContentOption)
+                                            {
+                                                <div class="radio">
+                                                    <label>
+                                                        <input type="radio" name="optionsRadios_@cbt.Id" id="optionsRadios_@mcOption.Id" value="@mcOption.Id" class="target optionsD">
+                                                        @mcOption.OptionValue
+                                                    </label>
+                                                </div>
+                                            }
+                                        }
+                                    }
+
+                                    @if (cbt.ContentTypeId == 4)
+                                    {
+                                        <div class="form-group col-sm-10 col-md-10">
+                                            <select class="form-control target" id="ddlDropdownQ">
+                                                <option value="-1" class="optionsD">PLEASE SELECT</option>
+                                                @foreach (CBTContentOptionsDto ddOption in cbt.CBTContentOption)
+                                                {
+                                                    <option value="@ddOption.Id">
+                                                        @ddOption.OptionValue
+                                                    </option>
+                                                }
+                                            </select>
+                                        </div>
+                                    }
+                                    @if (cbt.IncludeComment)
+                                    {
+                                        <div class="form-group col-sm-10 col-md-10">
+                                            <div class="form-group col-sm-8 col-md-8">
+                                                <textarea class="form-control" rows="3" placeholder="Include Comment"></textarea>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+        }
+    </div>
+    @if (Model.CategoryLists.Count > 0)
+    {
+        <button type="submit" class="btn btn-success center-block">@L("SurveySave")</button>
+    }
+    <div>&nbsp;</div>
+</form>

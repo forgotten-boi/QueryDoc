@@ -1,0 +1,68 @@
+﻿@using CBT.OnlineTutor.Web.Startup;
+@using CBT.OnlineTutor.EClass.Dtos;
+@model CBT.OnlineTutor.Web.Models.CategoryListViewModel
+
+<form id="PreviewContentForm">
+    @if (Model.CategoryLists.Count > 0)
+    {
+        <div class="form-group">
+            <div class="col-md-2 formLabel"><label><b>CBT CODE : </b></label></div>
+            <div class="col-md-10 text-left"><label>@ViewBag.UniqueId</label></div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-2 formLabel"><label><b>NAME OF CBT : </b></label></div>
+            <div class="col-md-10 text-left"><label>@ViewBag.Name</label></div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-2 formLabel"><label><b>DESCRIPTION : </b></label></div>
+            <div class="col-md-10 text-left"><label>@ViewBag.Description</label></div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-2 formLabel"><label><b>PROGRAM TYPE : </b></label></div>
+            <div class="col-md-10 text-left"><label>@ViewBag.ProgramType</label></div>
+        </div>
+    }
+    <div class="form-group" style="height:110px;"></div>
+    <div class="form-group">
+        @foreach (CategoryDto item in Model.CategoryLists)
+        {
+            if (item.CBTContents.Count > 0)
+            {
+                <div class="form-group">
+                    @*<span style="float:right;">*@
+                    <h4>Category : @item.CategoryName</h4> @*: @item.Description*@
+                    @*</span>*@
+                    @foreach (CBTContentDto cbt in Model.CBTContentLists.Where(c => c.CategoryId == item.Id))
+                    {
+                        <div class="form-group col-sm-12 well" style="background-color: rgba(224, 224, 224, 0.38) !important;">
+                            <input type="hidden" id="partialQuestionId" value="@cbt.Id.ToString()" />
+                            <label for="cbtContent" style="padding-left:50px; padding-right: 50px;">
+                                @Html.Raw(@cbt.Description)
+                            </label>
+                            <div style="padding-left:50px; padding-right: 50px;">
+                                <div class="form-group col-sm-12">
+                                    @if (cbt.ContentTypeId == 5)
+                                    {
+                                        <video  src="http://localhost:62114/UploadedFiles/@cbt.FileName" type="video/mp4" controls="controls" width="100%" />
+                                    }
+                                    else if (cbt.ContentTypeId == 6)
+                                    {
+                                        <audio src="http://localhost:62114/UploadedFiles/@cbt.FileName" type="audio/mp3" controls="controls" />
+                                    }
+                                    else if (cbt.ContentTypeId == 7)
+                                    {
+                                        <img id="preview" src="http://localhost:62114/UploadedFiles/@cbt.FileName" width="100%"/>
+                                    }
+                                    else if (cbt.ContentTypeId == 8)
+                                    {
+                                        <audio src="http://localhost:62114/UploadedFiles/@cbt.FileName" type="rtmp/flv" controls="controls" />
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+        }
+    </div>
+</form>

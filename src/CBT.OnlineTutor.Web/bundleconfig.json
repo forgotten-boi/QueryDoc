@@ -1,0 +1,136 @@
+[
+  {
+    "outputFileName": "wwwroot/js/views/home/index.min.js",
+    "inputFiles": [
+      "wwwroot/js/views/home/index.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/view-resources/Views/_Bundles/layout-libs.min.css",
+    "inputFiles": [
+      "wwwroot/lib/bootstrap-paper/bootstrap.css",
+      "wwwroot/lib/toastr/toastr.css",
+      "wwwroot/lib/sweetalert/dist/sweetalert.css",
+      "wwwroot/lib/famfamfam-flags/dist/sprite/famfamfam-flags.css",
+      "wwwroot/lib/font-awesome/css/font-awesome.css",
+      "wwwroot/css/main.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/view-resources/Views/_Bundles/layout-libs.min.js",
+    "inputFiles": [
+      "wwwroot/lib/json2/json2.js",
+      "wwwroot/lib/jquery/dist/jquery.js",
+      "wwwroot/lib/bootstrap/dist/js/bootstrap.js",
+      "wwwroot/lib/moment/min/moment-with-locales.js",
+      "wwwroot/lib/jquery-validation/dist/jquery.validate.js",
+      "wwwroot/lib/blockUI/jquery.blockUI.js",
+      "wwwroot/lib/toastr/toastr.js",
+      "wwwroot/lib/sweetalert/dist/sweetalert-dev.js",
+      "wwwroot/lib/spin.js/spin.js",
+      "wwwroot/lib/spin.js/jquery.spin.js",
+      "wwwroot/lib/abp-web-resources/Abp/Framework/scripts/abp.js",
+      "wwwroot/lib/abp-web-resources/Abp/Framework/scripts/libs/abp.jquery.js",
+      "wwwroot/lib/abp-web-resources/Abp/Framework/scripts/libs/abp.toastr.js",
+      "wwwroot/lib/abp-web-resources/Abp/Framework/scripts/libs/abp.blockUI.js",
+      "wwwroot/lib/abp-web-resources/Abp/Framework/scripts/libs/abp.sweet-alert.js",
+      "wwwroot/lib/abp-web-resources/Abp/Framework/scripts/libs/abp.spin.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/views/eclass/createprogram.min.js",
+    "inputFiles": [
+      "wwwroot/js/views/eclass/createprogram.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/views/eclass/programlist.min.js",
+    "inputFiles": [
+      "wwwroot/js/views/eclass/programlist.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/jquery-extensions.min.js",
+    "inputFiles": [
+      "wwwroot/js/jquery-extensions.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/lib/datetimepicker/jquery.datetimepicker.min.js",
+    "inputFiles": [
+      "wwwroot/lib/datetimepicker/jquery.datetimepicker.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/lib/datetimepicker/jquery.datetimepicker.min.css",
+    "inputFiles": [
+      "wwwroot/lib/datetimepicker/jquery.datetimepicker.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/views/eclass/updateprogram.min.js",
+    "inputFiles": [
+      "wwwroot/js/views/eclass/updateprogram.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/views/eclass/categorylist.min.js",
+    "inputFiles": [
+      "wwwroot/js/views/eclass/categorylist.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/views/eclass/createcategory.min.js",
+    "inputFiles": [
+      "wwwroot/js/views/eclass/createcategory.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/views/eclass/updatecategory.min.js",
+    "inputFiles": [
+      "wwwroot/js/views/eclass/updatecategory.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/views/eclass/cbtcontentlist.min.js",
+    "inputFiles": [
+      "wwwroot/js/views/eclass/cbtcontentlist.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/views/eclass/createcbtcontent.min.js",
+    "inputFiles": [
+      "wwwroot/js/views/eclass/createcbtcontent.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/views/eclass/updatecbtcontent.min.js",
+    "inputFiles": [
+      "wwwroot/js/views/eclass/updatecbtcontent.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/views/preview/previewcbt.min.js",
+    "inputFiles": [
+      "wwwroot/js/views/preview/previewcbt.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/lib/ckeditor/ckeditor.min.js",
+    "inputFiles": [
+      "wwwroot/lib/ckeditor/ckeditor.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/lib/ckeditor/adapters/jquery.min.js",
+    "inputFiles": [
+      "wwwroot/lib/ckeditor/adapters/jquery.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/views/preview/previewdetail.min.js",
+    "inputFiles": [
+      "wwwroot/js/views/preview/previewdetail.js"
+    ]
+  }
+]

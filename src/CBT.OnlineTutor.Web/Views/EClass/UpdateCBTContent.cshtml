@@ -1,0 +1,218 @@
+﻿@using CBT.OnlineTutor.Web.Models;
+@model CreateCBTContentViewModel
+
+<script>
+    var cbtOptions = @Html.Raw(Json.Serialize(Model.CBTContentOption));
+    console.log(cbtOptions);
+</script>
+@section scripts
+{
+    <environment names="Development">
+        <script src="~/js/views/eclass/updatecbtcontent.js" asp-append-version="true"></script>
+        <script src="~/lib/ckeditor/ckeditor.js" asp-append-version="true"></script>
+        <script src="~/lib/ckeditor/adapters/jquery.js" asp-append-version="true"></script>
+    </environment>
+
+    <environment names="Staging,Production">
+        <script src="~/js/views/eclass/updatecbtcontent.min.js" asp-append-version="true"></script>
+        <script src="~/lib/ckeditor/adapters/jquery.min.js" asp-append-version="true"></script>
+    </environment>
+}
+
+<h2>
+    @L("UpdateCBTContent")
+</h2>
+
+<form id="CBTContentUpdateForm">
+    <div class="form-group">
+        @Html.HiddenFor(m => m.CBTContentId)
+    </div>
+
+    <div class="form-group">
+        @Html.Label(L("CategoryList"))
+        @Html.DropDownListFor(
+            m => m.CategoryId,
+            Model.CategoryList,
+            new
+            {
+                @class = "form-control",
+                id = "CategoryCombobox"
+            })
+    </div>
+
+    <div class="form-group">
+        @Html.Label(L("CBTContentList"))
+        @Html.DropDownListFor(
+            m => m.PrecedingCBTContentId,
+            Model.CBTContentList,
+            new
+            {
+                @class = "form-control",
+                id = "CBTContentCombobox"
+            })
+    </div>
+
+    <div class="form-group">
+        <label for="Code">@L("CBTContentCode")</label>
+        @Html.TextBoxFor(m => m.Code, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.Label(L("ContentTypeList"))
+        @Html.DropDownListFor(
+            m => m.ContentTypeId,
+            Model.ContentTypeList,
+            new
+            {
+                @class = "form-control",
+                id = "ContentTypeCombobox"
+            })
+    </div>
+
+    <div id="main">
+        <div class="form-group col-sm-12">
+            <div class="col-sm-3">
+                <label for="Required">@L("Required")</label>
+                @Html.CheckBoxFor(m => m.Required)
+            </div>
+            <div id="optionNumeric" class="col-sm-3">
+                <label for="OnlyNumericValue">@L("OnlyNumericValue")</label>
+                @Html.CheckBoxFor(m => m.OnlyNumericValue)
+            </div>
+            <div class="col-sm-3">
+                <label for="IncludeComment">@L("IncludeComment")</label>
+                @Html.CheckBoxFor(m => m.IncludeComment)
+            </div>
+            <div id="optionMultipleChoice" class="col-sm-3">
+                <label for="AllowMultipleChoice">@L("AllowMultipleChoice")</label>
+                @Html.CheckBoxFor(m => m.AllowMultipleChoice)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="Description">@L("Description")</label>
+            @Html.TextAreaFor(m => m.Description, new { @class = "form-control" })
+        </div>
+
+        <div id="multipleTextBox" class="form-group col-sm-12">
+            <fieldset id="multipleTextbox">
+                <script type="text/template" id="mtTemplate">
+                    <div id="multiTextbox{{ID}}" class="multiTextbox col-sm-12">
+                        <div class="col-sm-9">
+                            <div class="row">
+                                <div class="col-sm-1 formLabel" style="position: relative; top: 10px;">
+                                    <label class="lblOption formLabel text-nowrap">Label {{ID}}</label>
+                                </div>
+                                <div class="col-sm-5">
+                                    <input type="hidden" class="hdnMultipleText" id="hdnMultipleText_{{ID}}" name="hdnMultipleText_{{ID}}" value="" />
+                                    <input type="text" class="txtMultipleText buttomMargin form-control" id="txtMultipleText_{{ID}}" name="txtMultipleText_{{ID}}" />
+                                </div>
+                                <div class="col-sm-2" style="position: relative; top: 10px;">
+                                    <label class="lblDatatype col-md-3 formLabel text-nowrap">DataType {{ID}}</label>
+                                </div>
+                                <div class="col-sm-3">
+                                    <select class="ddlMultipleDataType buttomMargin form-control" id="ddlMultipleDataType_{{ID}}" name="ddlMultipleDataType_{{ID}}">
+                                        <option value="VARCHAR">STRING</option>
+                                        <option value="NUMERIC">NUMERIC</option>
+                                        <option value="DATETIME">DATETIME</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3" style="position: relative;top: 11px;left: -50px;">
+                            <div class="row">
+                                <a href="javascript:void(0)" class="addMT col-md-3">
+                                    <i class="fa fa-plus"></i>
+                                </a>
+                                <a href="javascript:void(0)" class="deleteMT">
+                                    <i class="fa fa-trash"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </script>
+                <div id='cloneMultiTextbox'></div>
+            </fieldset>
+        </div>
+
+        <div id="multipleChoice" class="form-group col-sm-12">
+            <fieldset id="multipleChoice">
+                <script type="text/template" id="mcTemplate">
+                    <div id="multiChoice{{ID}}" class="multiChoice col-sm-12">
+                        <div class="col-sm-9">
+                            <div class="row">
+                                <div class="col-sm-2 formLabel" style="position: relative; top: 10px;">
+                                    <label class="lblOption formLabel text-nowrap">Choice {{ID}}</label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input type="text" class="txtMultipleOption form-control" id="txtMultipleOption_{{ID}}" name="txtMultipleOption_{{ID}}" />
+                                    <input type="hidden" class="hdnMultipleOption" id="hdnMultipleOption_{{ID}}" name="hdnMultipleOption_{{ID}}" value="" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3" style="position: relative;top: 11px;left: -50px;">
+                            <div class="row">
+                                <a href="javascript:void(0)" class="addMC col-md-3">
+                                    <i class="fa fa-plus"></i>
+                                </a>
+                                <a href="javascript:void(0)" class="deleteMC">
+                                    <i class="fa fa-trash"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </script>
+                <div id='cloneMultiChoice'></div>
+            </fieldset>
+        </div>
+
+        <div id="dropDown" class="form-group col-sm-12">
+            <fieldset id="dropDown">
+                <script type="text/template" id="ddTemplate">
+                    <div id="dropDown{{ID}}" class="dropDown col-sm-12">
+                        <div class="col-sm-9">
+                            <div class="row">
+                                <div class="col-sm-2 formLabel" style="position: relative; top: 10px;">
+                                    <label class="lblOption formLabel text-nowrap">Dropdown Choice {{ID}}</label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input type="text" class="txtDropDownOption form-control" id="txtDropDownOption_{{ID}}" name="txtDropDownOption_{{ID}}" />
+                                    <input type="hidden" class="hdnDropdown" id="hdnDropdown_{{ID}}" name="hdnDropdown_{{ID}}" value="" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3" style="position: relative;top: 11px;left: -50px;">
+                            <div class="row">
+                                <a href="javascript:void(0)" class="addDD col-md-3">
+                                    <i class="fa fa-plus"></i>
+                                </a>
+                                <a href="javascript:void(0)" class="deleteDD">
+                                    <i class="fa fa-trash"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </script>
+                <div id='cloneDropdownbox'></div>
+            </fieldset>
+        </div>
+
+        <div id="fileUpload" class="form-group col-sm-12">
+            <div class="col-sm-5">
+                <label class="lblOption col-md-3 formLabel text-nowrap">File Upload <i><label id="docType" style="font-size:12px; color: gray;" /></i> : </label>
+            </div>
+            <div class="col-sm-6">
+                <input type="file" id="fileUpload" name="fileUpload" />
+                <label class="col-md-3 formLabel text-nowrap">@Model.FileName</label>
+            </div>
+        </div>
+
+        <div class="text-center">
+            <button type="submit" class="btn btn-success">@L("Save")</button>
+            <a type="submit" class="btn btn-default" href="@Url.Action("CBTContentList", "EClass")">@L("Cancel")</a>
+            <input type="hidden" id="hdnDynamicRow" name="hdnDynamicRow" value="1" />
+            <input type="hidden" id="hdnFileName" name="hdnFileName" value="@Model.FileName" />
+            <input type="hidden" id="hdnFilePath" name="hdnFilePath" value="@Model.Location" />
+        </div>
+    </div>
+</form>

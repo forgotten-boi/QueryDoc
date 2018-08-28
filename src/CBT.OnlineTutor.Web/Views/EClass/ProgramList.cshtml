@@ -1,0 +1,62 @@
+﻿@using CBT.OnlineTutor.Web.Startup;
+@model CBT.OnlineTutor.Web.Models.ProgramListViewModel
+
+@{
+    ViewBag.Title = @L("ProgramList");
+    ViewBag.ActiveMenu = PageNames.ProgramList;
+}
+
+@section scripts
+{
+    <environment names="Development">
+        <script src="~/js/views/eclass/programlist.js" asp-append-version="true"></script>
+    </environment>
+
+    <environment names="Staging,Production">
+        <script src="~/js/views/eclass/programlist.min.js" asp-append-version="true"></script>
+    </environment>
+}
+
+<form id="ProgramListForm">
+    <h3>
+        @L("ProgramList")
+        <span><a class="btn btn-primary btn-sm" asp-action="CreateProgram">@L("AddNew")</a></span>
+    </h3>
+    <div class="row">
+        <div class="col-lg-12">
+            @L("Program_Description")
+        </div>
+    </div>
+    <div class="row">
+        <table class="table table-stripped">
+            <tr>
+                <th>Program Code</th>
+                <th>Name</th>
+                @*<th>Description</th>*@
+                <th>Status</th>
+                <th>Count</th>
+                <th>Last Date</th>
+                <th>User Type</th>
+                <th>Program Type</th>
+                <th>Action</th>
+            </tr>
+            @foreach (var pList in Model.ProgramLists)
+            {
+                <tr>
+                    <td>@pList.UniqueId</td>
+                    <td>@pList.Name</td>
+                    @*<td>@pList.Description</td>*@
+                    <td style="color:@Model.GetTaskLabel(pList);">@pList.Status</td>
+                    <td>@pList.ProgramCount</td>
+                    <td>@pList.ProgramLastDate.ToString("MM/dd/yyyy")</td>
+                    <td>@pList.UserTypeName</td>
+                    <td>@pList.ProgramName</td>
+                    <td>
+                        <a id="UpdateProgram" name="UpdateProgram" data-index="@pList.ProgramId" asp-action="UpdateProgram" asp-route-id="@pList.ProgramId"><i class="fa fa-edit"></i></a> |
+                        <a id="DeleteProgram" name="DeleteProgram" data-index="@pList.ProgramId" asp-action="DeleteProgram"><i class="fa fa-trash"></i></a>
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</form>

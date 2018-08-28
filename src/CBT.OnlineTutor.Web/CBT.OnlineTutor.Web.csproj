@@ -1,0 +1,82 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <Version>1.0.0.0</Version>
+    <TargetFramework>netcoreapp1.1</TargetFramework>
+    <PackageTargetFallback>$(PackageTargetFallback);dotnet5.6;portable-net45+win8</PackageTargetFallback>
+    <PreserveCompilationContext>true</PreserveCompilationContext>
+    <AssemblyName>CBT.OnlineTutor.Web</AssemblyName>
+    <OutputType>Exe</OutputType>
+    <PackageId>CBT.OnlineTutor.Web</PackageId>
+    <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include="wwwroot\js\jquery-extensions.js" />
+    <Content Include="wwwroot\js\views\eclass\categorylist.js" />
+    <Content Include="wwwroot\js\views\eclass\cbtcontentlist.js" />
+    <Content Include="wwwroot\js\views\eclass\createcategory.js" />
+    <Content Include="wwwroot\js\views\eclass\createcbtcontent.js" />
+    <Content Include="wwwroot\js\views\eclass\createprogram.js" />
+    <Content Include="wwwroot\js\views\eclass\createprogram.min.js" />
+    <Content Include="wwwroot\js\views\eclass\programlist.js" />
+    <Content Include="wwwroot\js\views\eclass\updatecategory.js" />
+    <Content Include="wwwroot\js\views\eclass\updatecbtcontent.js" />
+    <Content Include="wwwroot\js\views\eclass\updateprogram.js" />
+    <Content Include="wwwroot\js\views\preview\previewcbt.js" />
+    <Content Include="wwwroot\js\views\preview\previewdetail.js" />
+    <Content Include="wwwroot\lib\ckeditor\plugins\colorbutton\plugin.js" />
+    <Content Include="wwwroot\lib\ckeditor\plugins\plugin.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Update="log4net.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </None>
+    <None Update="wwwroot\**\*;Views\**\*">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CBT.OnlineTutor.Application\CBT.OnlineTutor.Application.csproj" />
+    <ProjectReference Include="..\CBT.OnlineTutor.EntityFrameworkCore\CBT.OnlineTutor.EntityFrameworkCore.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Castle.LoggingFacility.MsLogging" Version="2.0.0" />
+    <PackageReference Include="ckeditor-full" Version="4.7.0" />
+    <PackageReference Include="Microsoft.AspNet.Http.Features" Version="1.0.0-rc1-final" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics" Version="1.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="1.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="1.1.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Server.IISIntegration" Version="1.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Server.Kestrel" Version="1.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="1.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="1.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer.Design" Version="1.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="1.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="1.1.1" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.BrowserLink" Version="1.1.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="1.1.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="1.1.0">
+      <PrivateAssets>All</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Abp.AspNetCore" Version="2.0.2" />
+    <PackageReference Include="Abp.Castle.Log4Net" Version="2.0.2" />
+  </ItemGroup>
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
+    <Reference Include="System" />
+    <Reference Include="Microsoft.CSharp" />
+  </ItemGroup>
+  <ItemGroup>
+    <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="1.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.Web">
+      <HintPath>C:\Windows\assembly\GAC_64\System.Web\2.0.0.0__b03f5f7f11d50a3a\System.Web.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="wwwroot\UploadedFiles\" />
+  </ItemGroup>
+</Project>

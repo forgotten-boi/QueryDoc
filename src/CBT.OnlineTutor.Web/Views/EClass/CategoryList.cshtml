@@ -1,0 +1,54 @@
+﻿@using CBT.OnlineTutor.Web.Startup;
+@model CBT.OnlineTutor.Web.Models.CategoryListViewModel
+
+@{
+    ViewBag.Title = @L("CategoryList");
+    ViewBag.ActiveMenu = PageNames.CategoryList;
+}
+
+@section scripts
+{
+    <environment names="Development">
+        <script src="~/js/views/eclass/categorylist.js" asp-append-version="true"></script>
+    </environment>
+
+    <environment names="Staging,Production">
+        <script src="~/js/views/eclass/categorylist.min.js" asp-append-version="true"></script>
+    </environment>
+}
+
+<form id="CategoryListForm">
+    <h3>
+        @L("CategoryList")
+        <span><a class="btn btn-primary btn-sm" asp-action="CreateCategory">@L("AddNew")</a></span>
+    </h3>
+    <div class="row">
+        <div class="col-lg-12">
+            @L("Category_Description")
+        </div>
+    </div>
+    <div class="row">
+        <table class="table table-stripped">
+            <tr>
+                <th>Category Name</th>
+                <th>Description</th>
+                <th>Parent Category</th>
+                <th>Program Code</th>
+                <th>Action</th>
+            </tr>
+            @foreach (var pList in Model.CategoryLists)
+            {
+                <tr>
+                    <td>@pList.CategoryName</td>
+                    <td>@pList.Description</td>
+                    <td>@pList.ParentCategoryName</td>
+                    <td>@pList.ProgramCode</td>
+                    <td>
+                        <a id="UpdateCategory" name="UpdateCategory" data-index="@pList.CategoryId" asp-action="UpdateCategory" asp-route-id="@pList.CategoryId"><i class="fa fa-edit"></i></a> |
+                        <a id="DeleteCategory" name="DeleteCategory" data-index="@pList.CategoryId" asp-action="DeleteCategory"><i class="fa fa-trash"></i></a>
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</form>

@@ -1,0 +1,85 @@
+﻿@using CBT.OnlineTutor.Web.Models
+@model CreateProgramViewModel
+
+@section scripts
+{
+    <environment names="Development">
+        <script src="~/js/views/eclass/updateprogram.js" asp-append-version="true"></script>
+    </environment>
+
+    <environment names="Staging,Production">
+        <script src="~/js/views/eclass/updateprogram.min.js" asp-append-version="true"></script>
+    </environment>
+}
+
+<h2>
+    @L("UpdateProgram")
+</h2>
+
+<form id="ProgramUpdationForm">
+    <div class="form-group">
+        @Html.HiddenFor(m => m.ProgramId)
+    </div>
+
+    <div class="form-group">
+        <label for="UniqueCode">@L("UniqueCode")</label>
+        @Html.TextBoxFor(m => m.UniqueId, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        <label for="Name">@L("Name")</label>
+        @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        <label for="Description">@L("Description")</label>
+        @Html.TextBoxFor(m => m.Description, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        <label for="ProgramLastDate">@L("ProgramLastDate")</label>
+        @Html.TextBoxFor(m => m.ProgramLastDate, "{0:yyyy/MM/dd}", new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.Label(L("Status"))
+        @Html.DropDownListFor(m => m.Status, new List<SelectListItem>
+        {
+            new SelectListItem{ Text="NEW", Value = "NEW" },
+            new SelectListItem{ Text="UPDATED", Value = "UPDATED" },
+            new SelectListItem{ Text="ONGOING", Value = "ONGOING" },
+            new SelectListItem{ Text="POSTPONED", Value = "POSTPONED" },
+            new SelectListItem{ Text="CANCELED", Value = "CANCELED" },
+            new SelectListItem{ Text="COMPLETED", Value = "COMPLETED" },
+        })
+    </div>
+
+    <div class="form-group">
+        @Html.Label(L("UserType"))
+        @Html.DropDownListFor(
+            m => m.UserTypeId,
+            Model.UserType,
+            new
+            {
+                @class = "form-control",
+                id = "UserTypeCombobox"
+            })
+    </div>
+
+    <div class="form-group">
+        @Html.Label(L("ProgramType"))
+        @Html.DropDownListFor(
+            m => m.ProgramTypeId,
+            Model.ProgramType,
+            new
+            {
+                @class = "form-control",
+                id = "ProgramTypeCombobox"
+            })
+    </div>
+
+    <div class="text-center">
+        <button type="submit" class="btn btn-success">@L("Save")</button>
+        <a type="submit" class="btn btn-default" href="@Url.Action("Index", "EClass")">@L("Cancel")</a>
+    </div>
+</form>
