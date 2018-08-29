@@ -9,11 +9,15 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Configuration;
+using System.Linq;
+using Microsoft.AspNetCore.Mvc.Razor.Compilation;
 
 namespace CBT.OnlineTutor.Web.Startup
 {
     public class Startup
     {
+
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             //Configure DbContext
@@ -26,6 +30,14 @@ namespace CBT.OnlineTutor.Web.Startup
             {
                 options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
             });
+
+            services.AddMvc()
+                .ConfigureApplicationPartManager(manager =>
+                {
+                    var oldMetadataReferenceFeatureProvider = manager.FeatureProviders.First(f => f is MetadataReferenceFeatureProvider);
+                    manager.FeatureProviders.Remove(oldMetadataReferenceFeatureProvider);
+                    manager.FeatureProviders.Add(new ReferencesMetadataReferenceFeatureProvider());
+                });
 
             //Configure Abp and Dependency Injection
             return services.AddAbp<OnlineTutorWebModule>(options =>
@@ -59,6 +71,7 @@ namespace CBT.OnlineTutor.Web.Startup
                     name: "default",
                     template: "{controller=EClass}/{action=Index}/{id?}");
             });
+            app.Build();
         }
     }
 }
