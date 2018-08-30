@@ -283,7 +283,7 @@ namespace CBT.OnlineTutor.Web.Controllers
                 var filename = ContentDispositionHeaderValue
                                 .Parse(file.ContentDisposition)
                                 .FileName
-                                .Trim('"');
+                                .Trim().ToString();
                 
                 newFileName = id + $@"_{ filename}";
                 filename = hostingEnv.WebRootPath + $@"\UploadedFiles\{newFileName}";

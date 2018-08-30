@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
     <Version>1.0.0.0</Version>
-    <TargetFramework>netcoreapp1.1</TargetFramework>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
     <PackageTargetFallback>$(PackageTargetFallback);dotnet5.6;portable-net45+win8</PackageTargetFallback>
     <PreserveCompilationContext>true</PreserveCompilationContext>
     <AssemblyName>CBT.OnlineTutor.Web</AssemblyName>
@@ -1272,30 +1272,32 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CBT.OnlineTutor.Application\CBT.OnlineTutor.Application.csproj" />
-    <ProjectReference Include="..\CBT.OnlineTutor.EntityFrameworkCore\CBT.OnlineTutor.EntityFrameworkCore.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Castle.LoggingFacility.MsLogging" Version="2.0.0" />
+    <PackageReference Include="Abp" Version="3.8.2" />
+    <PackageReference Include="Abp.AspNetCore" Version="3.8.2" />
+    <PackageReference Include="Abp.AutoMapper" Version="3.8.2" />
+    <PackageReference Include="Abp.EntityFrameworkCore" Version="3.8.2" />
+    <PackageReference Include="Abp.AutoMapper" Version="3.8.2" />
+    <PackageReference Include="Abp.EntityFrameworkCore" Version="3.8.2" />
+    <PackageReference Include="Castle.LoggingFacility.MsLogging" Version="3.1.0" />
     <PackageReference Include="ckeditor-full" Version="4.7.0" />
-    <PackageReference Include="Microsoft.AspNet.Http.Features" Version="1.0.0-rc1-final" />
-    <PackageReference Include="Microsoft.AspNetCore.Diagnostics" Version="1.1.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="1.1.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="1.1.2" />
-    <PackageReference Include="Microsoft.AspNetCore.Server.IISIntegration" Version="1.1.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Server.Kestrel" Version="1.1.1" />
-    <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="1.1.1" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="1.1.1" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer.Design" Version="1.1.1" />
-    <PackageReference Include="Microsoft.Extensions.Logging" Version="1.1.1" />
-    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="1.1.1" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.BrowserLink" Version="1.1.0" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="1.1.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="1.1.0">
-      <PrivateAssets>All</PrivateAssets>
+    
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <!--<PackageReference Include="Microsoft.AspNet.Http.Features"/>-->
+    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.1.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Server.IISIntegration" Version="2.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Server.Kestrel" Version="2.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.1.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.1.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.1.2">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Abp.AspNetCore" Version="2.0.2" />
-    <PackageReference Include="Abp.Castle.Log4Net" Version="2.0.2" />
+    <!--<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer.Design" Version="2.1.1" />-->
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="2.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="2.1.1" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.BrowserLink" Version="2.1.1" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.0" />
     <PackageReference Include="System.ComponentModel.TypeConverter" Version="4.3.0" />
   </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
@@ -1303,7 +1305,11 @@
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
-    <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="1.0.0" />
+    <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.1.2" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CBT.OnlineTutor.Application\CBT.OnlineTutor.Application.csproj" />
+    <ProjectReference Include="..\CBT.OnlineTutor.EntityFrameworkCore\CBT.OnlineTutor.EntityFrameworkCore.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.Web">

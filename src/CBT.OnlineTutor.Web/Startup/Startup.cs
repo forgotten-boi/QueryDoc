@@ -1,9 +1,9 @@
 ﻿using System;
 using Abp.AspNetCore;
-using Abp.Castle.Logging.Log4Net;
+//using Abp.Castle.Logging.Log4Net;
 using Abp.EntityFrameworkCore;
 using CBT.OnlineTutor.EntityFrameworkCore;
-using Castle.Facilities.Logging;
+//using Castle.Facilities.Logging;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -12,6 +12,8 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Configuration;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc.Razor.Compilation;
+using Castle.Facilities.Logging;
+using Microsoft.EntityFrameworkCore;
 
 namespace CBT.OnlineTutor.Web.Startup
 {
@@ -25,6 +27,7 @@ namespace CBT.OnlineTutor.Web.Startup
             {
                 DbContextOptionsConfigurer.Configure(options.DbContextOptions, options.ConnectionString);
             });
+            //services.AddDbContext<OnlineTutorDbContext>(options => options.UseSqlServer(options.ConnectionString);
 
             services.AddMvc(options =>
             {
@@ -43,9 +46,9 @@ namespace CBT.OnlineTutor.Web.Startup
             return services.AddAbp<OnlineTutorWebModule>(options =>
             {
                 //Configure Log4Net logging
-                options.IocManager.IocContainer.AddFacility<LoggingFacility>(
-                    f => f.UseAbpLog4Net().WithConfig("log4net.config")
-                );
+                //options.IocManager.IocContainer.AddFacility<Castle.Facilities.Logging.LoggingFacility>(
+                //    f => f.UseAbpLog4Net().WithConfig("log4net.config")
+                //);
             });
         }
 

@@ -1,13 +1,14 @@
 ﻿using CBT.OnlineTutor.Configuration;
 using CBT.OnlineTutor.Web;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.Configuration;
 
 namespace CBT.OnlineTutor.EntityFrameworkCore
 {
     /* This class is needed to run EF Core PMC commands. Not used anywhere else */
-    public class OnlineTutorDbContextFactory : IDbContextFactory<OnlineTutorDbContext>
+    public class OnlineTutorDbContextFactory : IDesignTimeDbContextFactory<OnlineTutorDbContext>
     {
         public OnlineTutorDbContext Create(DbContextFactoryOptions options)
         {
@@ -16,6 +17,19 @@ namespace CBT.OnlineTutor.EntityFrameworkCore
 
             DbContextOptionsConfigurer.Configure(
                 builder, 
+                configuration.GetConnectionString(OnlineTutorConsts.ConnectionStringName)
+                );
+
+            return new OnlineTutorDbContext(builder.Options);
+        }
+
+        public OnlineTutorDbContext CreateDbContext(string[] args)
+        {
+            var builder = new DbContextOptionsBuilder<OnlineTutorDbContext>();
+            var configuration = AppConfigurations.Get(WebContentDirectoryFinder.CalculateContentRootFolder());
+
+            DbContextOptionsConfigurer.Configure(
+                builder,
                 configuration.GetConnectionString(OnlineTutorConsts.ConnectionStringName)
                 );
 
